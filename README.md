@@ -32,4 +32,4 @@ else: 3 -> 4
 
 This could be modeled on a directed graph in the following way:
 
-[graph]: https://i.gyazo.com/eb78ace44fa71ff83b744da05238ee06.png
+![graph](https://i.gyazo.com/eb78ace44fa71ff83b744da05238ee06.png)
