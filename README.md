@@ -2,7 +2,21 @@
 
 A repositary for investigating solutions for introducting routing validation into `eq-author-app`.
 
-## Solution 1 - Directed Graph
+## Solution 1 - Traversing the JSON schema
+
+This solution involves taking the ID of the object which will be deleted and sifting through every routable object within the questionnaire to identify which ones have a rule that points to it. Essentially, a series of `for` loops and `if` statements (or their simplified loadash counterpart).
+
+### Benefits
+
+- No extra NodeJS packages required
+- No models will need to be maintained as schema always reflects questionnaire state
+- Can validate before or after an object is deleted
+
+### Downsides
+
+- Will need to re-traverse the schema for every validation rule
+
+## Solution 2 - Directed Graph
 
 > In mathematics, and more specifically in graph theory, a directed graph is a graph that is made up of a set of vertices connected by edges, where the edges have a direction associated with them. - Wikipedia
 
@@ -47,17 +61,3 @@ In the latter example, this could be implemented by targeting the vertex belongi
 ### Downsides
 
 - Will need to redraw the graph multiple times or maintain a copy in the db
-
-## Solution 2 - Traversing the JSON schema
-
-This solution involves taking the ID of the object which will be deleted and sifting through every routable object within the questionnaire to identify which ones have a rule that points to it. Essentially, a series of `for` loops and `if` statements (or their simplified loadash counterpart).
-
-### Benefits
-
-- No extra NodeJS packages required
-- No models will need to be maintained as schema always reflects questionnaire state
-- Can validate before or after an object is deleted
-
-### Downsides
-
-- Will need to re-traverse the schema for every validation rule
