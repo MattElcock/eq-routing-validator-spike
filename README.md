@@ -2,7 +2,7 @@
 
 A repositary for investigating solutions for introducting routing validation into `eq-author-app`.
 
-## Soltuion 1 - Directed Graph
+## Solution 1 - Directed Graph
 
 > In mathematics, and more specifically in graph theory, a directed graph is a graph that is made up of a set of vertices connected by edges, where the edges have a direction associated with them. - Wikipedia
 
@@ -34,8 +34,30 @@ This could be modeled on a directed graph in the following way:
 
 ![graph](https://i.gyazo.com/eb78ace44fa71ff83b744da05238ee06.png)
 
-Using this model, you would then be able to programatically traverse the graph or target a particular vertex, or question, and validate the in and out edges, or routing rules. For instance, ensuring that circular routing rules were not applied or identifying when rules lead to a question that has been deleted. In the latter example, this could be implemented by either:
+Using this model, you would then be able to programatically traverse the graph or target a particular vertex, or question, and validate the in and out edges, or routing rules. For instance, ensuring that circular routing rules were not applied or identifying when rules lead to a question that has been deleted.
 
-**a** - targeting the vertex belonging to the question that has been deleted and identifying the source of all the edges pointing to it. This would flag the questions which have routing rules pointing to the deleted question, allowing the application to flag a validation warning on those pages.
+In the latter example, this could be implemented by targeting the vertex belonging to the question that has been deleted and identifying the source of all the edges pointing to it. This would flag the questions which have routing rules pointing to the deleted question, allowing the application to flag a validation warning on those pages.
 
-**b** - traversing the entire graph and flagging validation errors where edges (routing rules) point to verticies (questions) which no longer exist.
+### Benefits
+
+- Flexible; multiple validation rules can be applied with ease
+- NodeJS packages which build and facilitate traversing graphs exist
+- Can validate before or after an object is deleted
+
+### Downsides
+
+- Will need to redraw the graph multiple times or maintain a copy in the db
+
+## Solution 2 - Traversing the JSON schema
+
+This solution involves taking the ID of the object which will be deleted and sifting through every routable object within the questionnaire to identify which ones have a rule that points to it. Essentially, a series of `for` loops and `if` statements (or their simplified loadash counterpart).
+
+### Benefits
+
+- No extra NodeJS packages required
+- No models will need to be maintained as schema always reflects questionnaire state
+- Can validate before or after an object is deleted
+
+### Downsides
+
+- Will need to re-traverse the schema for every validation rule
