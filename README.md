@@ -33,3 +33,9 @@ else: 3 -> 4
 This could be modeled on a directed graph in the following way:
 
 ![graph](https://i.gyazo.com/eb78ace44fa71ff83b744da05238ee06.png)
+
+Using this model, you would then be able to programatically traverse the graph or target a particular vertex, or question, and validate the in and out edges, or routing rules. For instance, ensuring that circular routing rules were not applied or identifying when rules lead to a question that has been deleted. In the latter example, this could be implemented by either:
+
+**a** - targeting the vertex belonging to the question that has been deleted and identifying the source of all the edges pointing to it. This would flag the questions which have routing rules pointing to the deleted question, allowing the application to flag a validation warning on those pages.
+
+**b** - traversing the entire graph and flagging validation errors where edges (routing rules) point to verticies (questions) which no longer exist.
