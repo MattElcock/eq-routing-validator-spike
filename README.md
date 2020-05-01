@@ -11,9 +11,13 @@ This solution involves building a directed graph which models all of the routes 
 For example, consider the following questionnaire and routing rules:
 
 1 - What is your name?
+
 2 - How old are you?
+
 3 - Do you have a driving license?
+
 4 - Why do you not have a driving license?
+
 5 - End of questionnaire
 
 1 -> 2
