@@ -61,3 +61,5 @@ In the latter example, this could be implemented by targeting the vertex belongi
 ### Downsides
 
 - Will need to redraw the graph multiple times or maintain a copy in the db
+- More computation to draw the graph
+- To efficiently draw the graph, code will need to be placed around the codebase to build in the graph.
